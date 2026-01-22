@@ -1,0 +1,123 @@
+{
+  "id": "102019bb4180c787d0ab6a78235763969c3",
+  "version": "102019bb4180c787c82b5e645870b645083",
+  "schema": {
+    "name": "conversation",
+    "description": "Stores chat threads including title and timestamps.",
+    "fields": [
+      {
+        "name": "id",
+        "description": "Unique identifier for the conversation.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal system identifier"
+        }
+      },
+      {
+        "name": "data_creator",
+        "description": "id of the user who creates the record",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal audit trail"
+        }
+      },
+      {
+        "name": "data_updater",
+        "description": "id of the user who updates the record",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal audit trail"
+        }
+      },
+      {
+        "name": "create_time",
+        "description": "create time in timestamp unix",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "System metadata"
+        },
+        "format": "timestamp"
+      },
+      {
+        "name": "update_time",
+        "description": "update time in timestamp unix",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "System metadata"
+        },
+        "format": "timestamp"
+      },
+      {
+        "name": "user_id",
+        "description": "ID of the user owning this conversation.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 3,
+          "reason": "Identifies the owner of private conversations"
+        }
+      },
+      {
+        "name": "title",
+        "description": "Title of the conversation for sidebar display.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 3,
+          "reason": "May contain user private context"
+        }
+      }
+    ],
+    "indexes": [
+      {
+        "fields": [
+          "id"
+        ],
+        "unique": true,
+        "primary": true,
+        "order": false
+      },
+      {
+        "fields": [
+          "data_creator"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "data_updater"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "user_id"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "update_time",
+          "user_id"
+        ],
+        "order": true
+      }
+    ]
+  },
+  "task": {
+    "id": "696565347b69ad7fd26a3748",
+    "root": "696565347b69ad7fd26a3748",
+    "project": "696565347b69ad7fd26a3747",
+    "user": "58a1c3f0-b001-7083-7751-6a142d4b2c00"
+  },
+  "namespace": {
+    "id": "01987547fc6c72ecb453bd2736bd4ea0",
+    "tenant": 2,
+    "name": "global-1",
+    "default": true
+  },
+  "revision": 1
+}

@@ -1,0 +1,169 @@
+{
+  "id": "102019bb41835f87b408165da8fbc7cd9f9",
+  "version": "102019bb514ed3e7592a5adf116eea9c3f6",
+  "schema": {
+    "name": "message",
+    "description": "Stores individual messages within a conversation.",
+    "fields": [
+      {
+        "name": "id",
+        "description": "Unique identifier for the message.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal system identifier"
+        }
+      },
+      {
+        "name": "data_creator",
+        "description": "id of the user who creates the record",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal audit trail"
+        }
+      },
+      {
+        "name": "data_updater",
+        "description": "id of the user who updates the record",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Internal audit trail"
+        }
+      },
+      {
+        "name": "create_time",
+        "description": "create time in timestamp unix",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "System metadata"
+        },
+        "format": "timestamp"
+      },
+      {
+        "name": "update_time",
+        "description": "update time in timestamp unix",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "System metadata"
+        },
+        "format": "timestamp"
+      },
+      {
+        "name": "conversation_id",
+        "description": "Foreign key referencing the conversation.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 2,
+          "reason": "Links message to internal conversation structure"
+        }
+      },
+      {
+        "name": "role",
+        "description": "Role of the message sender (user or assistant).",
+        "type": 100,
+        "compliance": {
+          "confidentiality": 3,
+          "reason": "Part of private conversation context"
+        },
+        "enumeration": [
+          {
+            "value": "Unspecified"
+          },
+          {
+            "number": 1,
+            "value": "user"
+          },
+          {
+            "number": 2,
+            "value": "assistant"
+          }
+        ]
+      },
+      {
+        "name": "content",
+        "description": "Text content of the message.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 3,
+          "reason": "Private user communication"
+        }
+      },
+      {
+        "name": "image_url",
+        "description": "Optional URL for image attachment.",
+        "type": 1,
+        "compliance": {
+          "confidentiality": 3,
+          "reason": "Private user content attachment"
+        },
+        "nullable": true
+      }
+    ],
+    "indexes": [
+      {
+        "fields": [
+          "id"
+        ],
+        "unique": true,
+        "primary": true,
+        "order": false
+      },
+      {
+        "fields": [
+          "data_creator"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "data_updater"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "conversation_id"
+        ],
+        "order": false
+      },
+      {
+        "fields": [
+          "conversation_id",
+          "create_time"
+        ],
+        "order": true
+      }
+    ],
+    "relations": [
+      {
+        "referencing_fields": [
+          "conversation_id"
+        ],
+        "referenced_entity": {
+          "name": "conversation"
+        },
+        "referenced_fields": [
+          "id"
+        ],
+        "cascade": true
+      }
+    ]
+  },
+  "task": {
+    "id": "6965a6c5cffcfe0afbc61818",
+    "root": "696565347b69ad7fd26a3748",
+    "project": "696565347b69ad7fd26a3747",
+    "user": "58a1c3f0-b001-7083-7751-6a142d4b2c00"
+  },
+  "namespace": {
+    "id": "01987547fc6c72ecb453bd2736bd4ea0",
+    "tenant": 2,
+    "name": "global-1",
+    "default": true
+  },
+  "revision": 1
+}
